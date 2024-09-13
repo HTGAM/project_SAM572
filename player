@@ -1,0 +1,30 @@
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public float moveSpeed = 5f;
+    public GameObject projectilePrefab;
+    public Transform projectileSpawnPoint;
+
+    private void Update()
+    {
+        Move();
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Shoot();
+        }
+    }
+
+    private void Move()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
+        transform.Translate(direction * moveSpeed * Time.deltaTime);
+    }
+
+    private void Shoot()
+    {
+        Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+    }
+}
